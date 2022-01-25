@@ -27,6 +27,10 @@
         <a class="nav-link" href="icecreams.php">
           <i style="font-size:25px" class="fas fa-ice-cream"></i></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link btn btn-info" href="createIcecream.php">
+          <i class="fas fa-plus-circle"></i></a>
+      </li>
       <!-- <li class="nav-item">
         <a class="nav-link" href="infos.php">
           <i style="font-size:25px"  class="far fa-newspaper"></i></a>

@@ -3,15 +3,16 @@
 namespace Models;
 
 require_once dirname(__FILE__)."/../libraries/db.php";
+require_once "core/Database/PdoMySQL.php";
 
-abstract class Model
+abstract class AbstractModel
 {
     protected string $tableName;
     protected $pdo;
 
     public function __construct()
     {
-        $this->pdo = getPdo();
+        $this->pdo = \Database\PdoMySQL::getPdo();
     }
 
 /**

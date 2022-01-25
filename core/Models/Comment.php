@@ -2,9 +2,9 @@
 
 namespace Models;
 
-require_once dirname(__FILE__)."/Model.php";
+require_once dirname(__FILE__)."/AbstractModel.php";
 
-class Comment extends Model
+class Comment extends AbstractModel
 {
     protected string $tableName = "comments";
 

@@ -1,9 +1,9 @@
 <?php
 namespace Models;
 
-require_once dirname(__FILE__)."/Model.php";
+require_once dirname(__FILE__)."/AbstractModel.php";
 
-class Cocktail extends Model
+class Cocktail extends AbstractModel
 {
 
     protected string $tableName = "cocktails";
