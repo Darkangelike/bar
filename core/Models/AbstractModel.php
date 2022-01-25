@@ -2,7 +2,6 @@
 
 namespace Models;
 
-require_once dirname(__FILE__)."/../libraries/db.php";
 require_once "core/Database/PdoMySQL.php";
 
 abstract class AbstractModel
