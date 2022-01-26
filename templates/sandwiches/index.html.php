@@ -9,8 +9,9 @@
             <form action="deleteSandwich.php" method="POST">
                 <button value="<?= $sandwich["id"] ?>" name="id" style="float:right" type="submit" class="btn btn-danger">X</button>
             </form>
-            <form action="editSandwich.php">
-                <button value="<?= $sandwich["id"] ?>" name="edit" style="float:right" type="submit" class="btn btn-info">Edit</button>
+            <form action="createSandwich.php">
+                <input type="hidden" name="i" value="<?= $i ?>">
+                <button value="<?= $sandwich["id"] ?>" name="id" style="float:right" type="submit" class="btn btn-info">Edit</button>
             </form>
     
             
