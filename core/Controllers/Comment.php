@@ -4,14 +4,21 @@ namespace Controllers;
 
 require_once dirname(__FILE__)."/AbstractController.php";
 require_once dirname(__FILE__)."/../Models/Cocktail.php";
-require_once dirname(__FILE__)."/../libraries/tools.php";
+require_once "core/Database/PdoMySQL.php";
 
 class Comment extends AbstractController
 {
 
     protected $defaultModelName = \Models\Comment::class;
 
-    public function createComment() {
+
+    /**
+     * Insert a new comment
+     * 
+     * @return void
+     * 
+     */
+    public function createComment():void {
 
         $id = null;
         $comment = null;
@@ -39,7 +46,7 @@ class Comment extends AbstractController
         // Checking if all the values to insert are valid
 
         if (!$author || !$content || !$cocktail_id) { 
-            redirect("cocktail.php?id={$cocktail_id}");
+            $this->redirect("cocktail.php?id={$cocktail_id}");
         }
 
         // Instancing Cocktail class
@@ -52,20 +59,24 @@ class Comment extends AbstractController
         // ERROR IF COCKTAIL ID DOES NOT EXIST IN DATABASE AND REDIRECTION TO INDEX
 
         if (!$cocktail) {
-            redirect("index.php?info=comErr");
+            $this->redirect("index.php?info=comErr");
         }
-
-        // Instancing Comment class
-        // $modelComment = new \Models\Comment();
         
         // Saving the comment in the database
         $comment = $this->defaultModel->save($author, $content, $cocktail["id"]);
 
-        redirect("cocktail.php?id={$cocktail_id}");
+        $this->redirect("cocktail.php?id={$cocktail_id}");
 
 }
 
-    public function deleteComment()
+
+    /**
+     * Delete a comment
+     * 
+     * @return \App\Response
+     * 
+     */
+    public function deleteComment():\App\Response
     {
         $commentaire_id = null;
 
@@ -90,14 +101,14 @@ class Comment extends AbstractController
         // Redirect with error message if commentaire is false
 
         if (!$commentaire) {
-            redirect("index.php?info=errNoId");
+           return $this->redirect("index.php?info=errNoId");
         }
 
         // Remove comment
 
         $this->defaultModel->remove($commentaire_id);
 
-        redirect("cocktail.php?id={$cocktail_id}");
+        return $this->redirect("cocktail.php?id={$cocktail_id}");
     }
 
 }

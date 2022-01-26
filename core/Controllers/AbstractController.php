@@ -7,6 +7,7 @@ require_once dirname(__FILE__)."/../Models/Comment.php";
 require_once dirname(__FILE__)."/../Models/Icecream.php";
 require_once "core/App/Response.php";
 require_once "core/App/View.php";
+require_once "core/Models/Sandwich.php";
 
 abstract class AbstractController
 {
@@ -35,14 +36,12 @@ abstract class AbstractController
      * 
      * @param string $url
      * 
-     * 
+     * @return \App\Response
      */
-    public function redirect(string $url):Response
+    public function redirect(string $url):\App\Response
     {
         return \App\Response::redirect($url);
     }
-
-
 }
 
 

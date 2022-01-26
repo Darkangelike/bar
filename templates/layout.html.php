@@ -38,7 +38,7 @@
       <li class="nav-item">
         <a class="nav-link btn btn-info" href="createInfo.php">
           <i class="fas fa-plus-circle"></i></a>
-      </li>
+      </li> -->
       <li class="nav-item">
         <a class="nav-link" href="sandwiches.php">
           <i style="font-size:25px" class="fas fa-hotdog"></i></a>
@@ -47,7 +47,7 @@
         <a class="nav-link btn btn-info" href="createSandwich.php">
           <i class="fas fa-plus-circle"></i></a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link disabled" href="#">Disabled</a>
       </li> -->
     </ul>

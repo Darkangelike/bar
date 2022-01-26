@@ -2,7 +2,6 @@
 
 namespace Controllers;
 
-require_once dirname(__FILE__)."/../libraries/tools.php";
 require_once dirname(__FILE__)."/AbstractController.php";
 
 class Icecream extends AbstractController
@@ -12,13 +11,46 @@ class Icecream extends AbstractController
     /**
      * Renders the index page of icecreams
      * 
-     * @return void
      */
-    public function index():void
+    public function index()
     {
         $icecreams = $this->defaultModel->findAll();
         $pageTitle = "List of icecreams";
-        render("icecreams/index", compact("pageTitle", "icecreams"));
+        return $this->render("icecreams/index", compact("pageTitle", "icecreams"));
+    }
+
+    /**
+     * Renders the index page of icecreams
+     * 
+     */
+    public function show()
+    {
+        $id = null;
+        $i = null;
+        if(!empty($_GET["id"]) && ctype_digit($_GET["id"]))
+        {
+            $id = (int)$_GET["id"];
+        }
+
+        if(!empty($_GET["i"]) && ctype_digit($_GET["i"]))
+        {
+            $i = (int)$_GET["i"];
+        }
+
+        if (!$id)
+        {
+            $this->redirect("icecreams.php?info=errId");
+        }
+
+        $icecream = $this->defaultModel->findById($id);
+        
+        if (!$icecream)
+        {
+            $this->redirect("icecreams.php?info=errId");
+        }
+
+        $pageTitle = "About ice cream n°{$i}";
+        return $this->render("icecreams/show", compact("pageTitle", "icecream", "i"));
     }
 
     /**
@@ -36,12 +68,12 @@ class Icecream extends AbstractController
 
         if (!$description)
         {
-            redirect("createIcecream.php?info=errForm");
+            $this->redirect("createIcecream.php?info=errForm");
         }
 
         $icecream = $this->defaultModel->save($description);
 
-        redirect("icecreams.php");
+        $this->redirect("icecreams.php");
     }
 
     /**
@@ -60,11 +92,11 @@ class Icecream extends AbstractController
 
         if (!$id)
         {
-            redirect("icecreams.php?info=errId");
+            $this->redirect("icecreams.php?info=errId");
         }
         $this->defaultModel->remove($id);
 
-        redirect("icecreams.php");
+        $this->redirect("icecreams.php");
     }
 
 }

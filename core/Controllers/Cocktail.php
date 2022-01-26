@@ -109,9 +109,9 @@ class Cocktail extends AbstractController
      * Delete a cocktail from the database
      * using the id submitted by the user
      * 
-     * @return void
+     * @return \App\Response
      */
-    public function delete():void
+    public function delete():\App\Response
     {
         $id = null;
 
@@ -122,7 +122,7 @@ class Cocktail extends AbstractController
 
         if (!$id)
         {
-            $this->redirect("index.php?info=errId");
+            return $this->redirect("index.php?info=errId");
         }
 
         // $modelCocktail = new \Models\Cocktail();
@@ -130,12 +130,12 @@ class Cocktail extends AbstractController
 
         if (!$cocktail)
         {
-            $this->redirect("index.php?info=errId");
+            return $this->redirect("index.php?info=errId");
         }
 
         $this->defaultModel->remove($id);
 
-        $this->redirect("index.php");
+        return $this->redirect("index.php");
     }
 }
 
