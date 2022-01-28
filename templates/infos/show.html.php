@@ -22,6 +22,12 @@
                     <h3><?= $reaction->description ?></h3>
                 </div>
             <?php } ?>
+            <form action="?type=reaction&action=new" method="POST">
+                
+                    <input type="hidden" name="info_id" value="<?= $info->id ?>">
+                    <textarea name="description" id="description" cols="15" rows="5" placeholder="Write a reaction here"></textarea>
+                    <button class="btn btn-info" type="submit">Post</button>
+            </form>
         </div>
     </div>
 </div>
