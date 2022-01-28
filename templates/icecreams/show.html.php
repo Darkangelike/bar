@@ -1,3 +1,5 @@
+<?php print_r($icecream) ?>
+
 <div class="card-group justify-content-center">
     <div class="cocktail-card m-4">
 

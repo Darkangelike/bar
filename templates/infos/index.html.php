@@ -12,7 +12,7 @@
             </form>
 
             <!-- Edit button -->
-            <a class="btn btn-info" href="?type=info&action=new&id=<?= $info->id ?>&i=<?= $i ?>">Edit</a>
+            <a class="btn btn-info" style="float:right" href="?type=info&action=new&id=<?= $info->id ?>&i=<?= $i ?>">Edit</a>
         </div>
         
         <H1>Information n°<?= $i ?></H1>

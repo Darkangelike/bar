@@ -30,6 +30,7 @@ public function findById(int $id)
         "id" => $id
     ]
     );
+    $sql->setFetchMode(\PDO::FETCH_CLASS, get_class($this));
     $element = $sql->fetch();
     return $element;
 }

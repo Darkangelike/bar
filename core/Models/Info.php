@@ -34,7 +34,7 @@ class Info extends AbstractModel
      */
     public function edit(int $id, string $description):void
     {
-        $sql = $this->pdo->prepare("UPDATE FROM {$this->tableName} SET description = :description WHERE id = :id");
+        $sql = $this->pdo->prepare("UPDATE {$this->tableName} SET description = :description WHERE id = :id");
         $sql->execute([
             "id" => $id,
             "description" => $description

@@ -35,6 +35,7 @@ class Info extends AbstractController
         }
 
         $info = $this->defaultModel->findById($id);
+        $reactions = new \Models\Reaction();
 
         if (!$info)
         {
@@ -42,7 +43,7 @@ class Info extends AbstractController
             $this->redirect($parameters);
         }
 
-        return $this->render("infos/show", ["pageTitle" => "Information n°{$i}", "info" => $info, "i" => $i]);
+        return $this->render("infos/show", ["pageTitle" => "Information n°{$i}", "info" => $info, "i" => $i, "reactions" => $reactions]);
     }
 
     /**
@@ -62,6 +63,7 @@ class Info extends AbstractController
         if(!empty($_GET["id"]) && ctype_digit($_GET["id"]))
         {
             $id = (int)$_GET["id"];
+            $edit = true;
         }
 
         if(!empty($_GET["i"]) && ctype_digit($_GET["i"]))
@@ -73,7 +75,16 @@ class Info extends AbstractController
         if (!empty($_POST["id"]) && ctype_digit($_POST["id"]))
         {
             $id = (int)$_POST["id"];
+        }
+
+        if (!empty($_POST["edit"]))
+        {
             $edit = true;
+        }
+        
+        if(!empty($_POST["i"]) && ctype_digit($_POST["i"]))
+        {
+            $i = (int)$_POST["i"];
         }
 
         if (!empty($_POST["description"]))
@@ -84,27 +95,41 @@ class Info extends AbstractController
         if ($id)
         {
             $info = $this->defaultModel->findById($id);
-            if (!$info) {
-                $this->redirect();
-            } else {
+            
+            if (!$info)
+            {
+                $this->redirect([
+                    "type" => "info",
+                    "action" => "index",
+                    "info" => "errId"
+                ]);
+            }
+            
+            if ($edit && $info && !$description)
+            {
+                $pageTitle = "Edit the information n°{$i}";
+                return $this->render("infos/create", ["pageTitle" =>$pageTitle, "info" => $info, "i" => $i, "edit" => $edit]);
+            }
+
+            if ($edit && $description)
+            {
+                $this->defaultModel->edit($id, $description);
                 
-                if (!$edit){
-                    $pageTitle = "Edit the information n°{$i}";
-                    $this->render("infos/create", ["pageTitle" =>$pageTitle, "info" => $info, "i" => $i]);
-                } else if ($edit && $description)
-                {
-                    $this->defaultModel->edit($id, $description);
-                    $this->redirect([
-                        "action" => "index",
-                        "type" => "info"
-                    ]);
-                }
+                $this->redirect([
+                    "type" => "info",
+                    "action" => "show",
+                    "id" => $id,
+                    "i" => $i
+                    
+                ]);
             }
         }
         
         // Creation
         if (!empty($_POST["description"]))
         {
+            var_dump($_POST);
+                die();
             $description = htmlspecialchars($_POST["description"]);
 
             $this->defaultModel->save($description);
