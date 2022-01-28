@@ -2,12 +2,14 @@
 
 namespace Models;
 
+use stdClass;
+
 require_once "core/Database/PdoMySQL.php";
 
 abstract class AbstractModel
 {
-    protected string $tableName;
     protected $pdo;
+    protected string $tableName;
 
     public function __construct()
     {
@@ -19,17 +21,16 @@ abstract class AbstractModel
  * Return an array containing only one element
  * 
  * @param integer $id
- * @return array|bool
  */
-public function findById(int $id):array | bool
+public function findById(int $id)
 {
-    $requestOne = $this->pdo->prepare("SELECT * FROM {$this->tableName} WHERE id= :id");
-    $requestOne->execute(
+    $sql = $this->pdo->prepare("SELECT * FROM {$this->tableName} WHERE id = :id");
+    $sql->execute(
         [
         "id" => $id
     ]
     );
-    $element = $requestOne->fetch();
+    $element = $sql->fetch();
     return $element;
 }
 
@@ -41,8 +42,8 @@ public function findById(int $id):array | bool
  */
 public function findAll():array
 {
-    $requestAll = $this->pdo->query("SELECT * FROM {$this->tableName}");
-    $elements = $requestAll->fetchAll();
+    $sql = $this->pdo->query("SELECT * FROM {$this->tableName}");
+    $elements = $sql->fetchAll(\PDO::FETCH_CLASS, get_class($this));
     return $elements;
 }
 

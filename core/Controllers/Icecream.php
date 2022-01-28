@@ -2,8 +2,6 @@
 
 namespace Controllers;
 
-require_once dirname(__FILE__)."/AbstractController.php";
-
 class Icecream extends AbstractController
 {
     protected $defaultModelName = \Models\Icecream::class;
@@ -39,14 +37,24 @@ class Icecream extends AbstractController
 
         if (!$id)
         {
-            $this->redirect("icecreams.php?info=errId");
+            $this->redirect([
+                
+            "type" => "icecream",
+            "action" => "index",
+            "info" => "errId"
+            ]);
         }
 
         $icecream = $this->defaultModel->findById($id);
         
         if (!$icecream)
         {
-            $this->redirect("icecreams.php?info=errId");
+            $this->redirect([
+                
+            "type" => "icecream",
+            "action" => "index",
+            "info" => "errId"
+            ]);
         }
 
         $pageTitle = "About ice cream n°{$i}";
@@ -56,11 +64,13 @@ class Icecream extends AbstractController
     /**
      * Insert a new icecream if a valid description was submitted through the form
      * 
-     * @return void
      */
-    public function new():void
+    public function new()
     {
         $description = null;
+        $create = true;
+        $edit = null;
+
         if (!empty($_POST["description"]))
         {
             $description = htmlspecialchars($_POST["description"]);
@@ -68,12 +78,15 @@ class Icecream extends AbstractController
 
         if (!$description)
         {
-            $this->redirect("createIcecream.php?info=errForm");
+            return $this->render("icecreams/create", ["pageTitle" => "Create a new icecream", "create" => $create, "edit" => $edit]);
         }
 
         $icecream = $this->defaultModel->save($description);
 
-        $this->redirect("icecreams.php");
+        $this->redirect([
+            "type" => "icecream",
+            "action" => "index"
+        ]);
     }
 
     /**
@@ -92,11 +105,19 @@ class Icecream extends AbstractController
 
         if (!$id)
         {
-            $this->redirect("icecreams.php?info=errId");
+            $this->redirect([
+                
+            "type" => "icecream",
+            "action" => "index",
+            "info" => "errId"
+            ]);
         }
         $this->defaultModel->remove($id);
 
-        $this->redirect("icecreams.php");
+        $this->redirect([
+            "type" => "icecream",
+            "action" => "index"
+        ]);
     }
 
 }

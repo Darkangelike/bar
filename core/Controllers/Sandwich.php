@@ -2,8 +2,6 @@
 
 namespace Controllers;
 
-require_once "core/Controllers/AbstractController.php";
-
 class Sandwich extends AbstractController
 {
     protected $defaultModelName = \Models\Sandwich::class;

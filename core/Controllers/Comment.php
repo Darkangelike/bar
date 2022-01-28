@@ -2,10 +2,6 @@
 
 namespace Controllers;
 
-require_once dirname(__FILE__)."/AbstractController.php";
-require_once dirname(__FILE__)."/../Models/Cocktail.php";
-require_once "core/Database/PdoMySQL.php";
-
 class Comment extends AbstractController
 {
 

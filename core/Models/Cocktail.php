@@ -1,13 +1,9 @@
 <?php
 namespace Models;
 
-require_once dirname(__FILE__)."/AbstractModel.php";
-
 class Cocktail extends AbstractModel
 {
-
     protected string $tableName = "cocktails";
-
 
     /**
      * Insert request to save a cocktail in the database table "cocktails"
@@ -30,7 +26,6 @@ class Cocktail extends AbstractModel
             ]
             );
     }
-
 }
 
 ?>

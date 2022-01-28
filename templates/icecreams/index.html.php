@@ -7,10 +7,10 @@
 
         <div style="height:40px">
             <form action="deleteIcecream.php" method="POST">
-                <button value="<?= $icecream["id"] ?>" name="id" style="float:right" type="submit" class="btn btn-danger">X</button>
+                <button value="<?= $icecream->id ?>" name="id" style="float:right" type="submit" class="btn btn-danger">X</button>
             </form>
             <!-- <form action="editIcecream.php">
-                <button value="<?= $icecream["id"] ?>" name="edit" style="float:right" type="submit" class="btn btn-info">Edit</button>
+                <button value="<?= $icecream->id ?>" name="edit" style="float:right" type="submit" class="btn btn-info">Edit</button>
             </form> -->
     
             
@@ -21,10 +21,10 @@
         
         <div class="card-footer">
             <h3>Description:</h3>
-            <p style="min-height:50px"><?= $icecream["description"] ?></p>
+            <p style="min-height:50px"><?= $icecream->description ?></p>
             <form action="icecream.php" class="mb-0 pb-0">
                 <input type="hidden" name="i" id="i" value="<?= $i ?>">
-                <button value="<?= $icecream['id'] ?>" name="id" type="submit" class="btn btn-info">View</button>
+                <button value="<?= $icecream->id ?>" name="id" type="submit" class="btn btn-info">View</button>
             </form>
         </div>
     </div>

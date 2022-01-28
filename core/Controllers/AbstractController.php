@@ -2,13 +2,6 @@
 
 namespace Controllers;
 
-require_once dirname(__FILE__)."/../Models/Cocktail.php";
-require_once dirname(__FILE__)."/../Models/Comment.php";
-require_once dirname(__FILE__)."/../Models/Icecream.php";
-require_once "core/App/Response.php";
-require_once "core/App/View.php";
-require_once "core/Models/Sandwich.php";
-
 abstract class AbstractController
 {
     protected object $defaultModel;
@@ -34,13 +27,13 @@ abstract class AbstractController
     /**
      * Redirect to the given $url in parameter
      * 
-     * @param string $url
+     * @param array $parameters
      * 
      * @return \App\Response
      */
-    public function redirect(string $url):\App\Response
+    public function redirect(?array $parameters = null):\App\Response
     {
-        return \App\Response::redirect($url);
+        return \App\Response::redirect($parameters);
     }
 }
 

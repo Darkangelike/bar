@@ -1,5 +1,5 @@
     <div class="container">
-    <form method="POST" action="createCocktail.php">
+    <form method="POST" action="?type=cocktail&action=new">
         
         <div class="d-flex flex-column align-items-center justify-content-center">
             <h1>Add a cocktail</h1>

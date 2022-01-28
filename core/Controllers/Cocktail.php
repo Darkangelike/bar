@@ -1,9 +1,6 @@
 <?php
 namespace Controllers;
 
-require_once dirname(__FILE__)."/AbstractController.php";
-require_once dirname(__FILE__)."/../Models/Comment.php";
-
 class Cocktail extends AbstractController
 {
 
@@ -17,9 +14,7 @@ class Cocktail extends AbstractController
     {
         
         $cocktails = $this->defaultModel->findAll();
-
         $pageTitle = "Every cocktails";
-
         return $this->render("cocktails/index", compact("cocktails", "pageTitle"));
     }
 
@@ -27,9 +22,8 @@ class Cocktail extends AbstractController
      * Render a page of only one cocktail found in the datababe
      * using the id from the submit button
      * 
-     * @return void
      */
-    public function show(): void
+    public function show()
     {
         $id = null;
 
@@ -38,12 +32,8 @@ class Cocktail extends AbstractController
         }
 
         if (!$id) {
-            $this->redirect("index.php?info=errId");
+            $this->redirect();
         }
-
-        // Instancing Cocktail class
-        // $modelCocktail = new \Models\Cocktail();
-
         
         // Retrieving one cocktail using its associated id
         $cocktail = $this->defaultModel->findById($id);
@@ -54,9 +44,9 @@ class Cocktail extends AbstractController
         // Retrieving all the comments associated with a cocktail_id
         $commentaires = $modelComment->findAllByCocktail($id);
         
-        $pageTitle = $cocktail["name"];
+        $pageTitle = $cocktail->name;
 
-        $this->render("cocktails/show", compact("cocktail", "commentaires", "pageTitle"));
+        return $this->render("cocktails/show", compact("cocktail", "commentaires", "pageTitle"));
     }
 
 
@@ -94,9 +84,11 @@ class Cocktail extends AbstractController
         {
             // $modelCocktail = new \Models\Cocktail();
             $cocktail = $this->defaultModel->save($name, $ingredients, $image);
-            $this->redirect("index.php");
+            $this->redirect([
+                "type" => "cocktail",
+                "action" => "index"
+            ]);
         }
-
 
         $pageTitle = "Create a new cocktail";
 
@@ -122,7 +114,7 @@ class Cocktail extends AbstractController
 
         if (!$id)
         {
-            return $this->redirect("index.php?info=errId");
+            return $this->redirect();
         }
 
         // $modelCocktail = new \Models\Cocktail();
@@ -130,12 +122,12 @@ class Cocktail extends AbstractController
 
         if (!$cocktail)
         {
-            return $this->redirect("index.php?info=errId");
+            return $this->redirect();
         }
 
         $this->defaultModel->remove($id);
 
-        return $this->redirect("index.php");
+        return $this->redirect();
     }
 }
 
